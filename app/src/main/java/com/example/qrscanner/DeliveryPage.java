@@ -14,11 +14,11 @@ public class DeliveryPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery_page);
-        btnQRcamera=findViewById(R.id.btnQRcamera);
+        btnQRcamera=findViewById(R.id.btnORCamera);
         btnQRcamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(DeliveryPage.this, QRContentRead.class);
+                Intent intent=new Intent(DeliveryPage.this, QRcamZxing.class);
                 startActivity(intent);
             }
         });
