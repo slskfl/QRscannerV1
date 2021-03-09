@@ -5,11 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".Dmain">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnDelivery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="배송"/>
+        <Button
+            android:id="@+id/btnReturn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="반품"/>
+        <Button
+            android:id="@+id/btnError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="오류"/>
+    </LinearLayout>
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:stretchColumns="3"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="20dp"
@@ -128,22 +151,14 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:text="메세지 공간"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <Button
-            android:id="@+id/btnDelivery"
-            android:layout_width="wrap_content"
+            android:id="@+id/btnInsertCamera"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="배송"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="반품"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="오류"/>
-    </LinearLayout>
+            android:layout_alignParentBottom="true"
+            android:text="QR코드 인식"/>
+    </RelativeLayout>
 </LinearLayout>

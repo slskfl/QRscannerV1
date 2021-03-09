@@ -18,7 +18,7 @@ public class DeliveryPage extends AppCompatActivity {
         btnQRcamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(DeliveryPage.this, QRcamZxing.class);
+                Intent intent=new Intent(DeliveryPage.this, QRcamZxingInsert.class);
                 startActivity(intent);
             }
         });
