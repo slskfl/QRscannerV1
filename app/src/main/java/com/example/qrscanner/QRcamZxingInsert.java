@@ -26,14 +26,16 @@ public class QRcamZxingInsert extends AppCompatActivity {
     String code, sname, spost, saddress, stel, snote, rname, rpost, raddress, rtel, rnote;
     //qr code scanner object
     private IntentIntegrator qrScan;
-    QRcodeDB qRcodeDB;
+    //DB
+    QRcodeDB qrcodedb;
     SQLiteDatabase sqlDB;
-
+    //QRscan
+    JSONObject obj;
+    IntentResult result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_q_rcam_zxing);
-        
 
         //View Objects
         buttonScan = (Button) findViewById(R.id.btnInsertCamera);
@@ -49,7 +51,8 @@ public class QRcamZxingInsert extends AppCompatActivity {
         tvRaddress = (TextView) findViewById(R.id.tvRaddress);
         tvRtel = (TextView) findViewById(R.id.tvRtel);
         tvRnote = (TextView) findViewById(R.id.tvRnote);
-
+        //DB생성
+        qrcodedb=new QRcodeDB(this);
 
         //intializing scan object
         qrScan = new IntentIntegrator(this);
@@ -66,14 +69,26 @@ public class QRcamZxingInsert extends AppCompatActivity {
         btnDBInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sqlDB=qRcodeDB.getReadableDatabase();
-               /* sqlDB.execSQL("INSERT INTO qrcodeTBL VALUES( '" + tvCode.getText().toString() + "','"
-                        + tvSname.getText().toString() + "','" + tvSpost.getText().toString() + "','"
-                        + tvSaddress.getText().toString()+"','"+ tvStel.getText().toString()+"','"
-                        + tvSnote.getText().toString()+"','"+ tvRname.getText().toString()+"','"
-                        + tvRpost.getText().toString()+"','"+tvRaddress.getText().toString()+"','"
-                        + tvRtel.getText().toString()+"','"+ tvRnote.getText().toString()+"');");*/
+                sqlDB= qrcodedb.getWritableDatabase();
+                try {
+                    sqlDB.execSQL("INSERT INTO qrcodeTBL VALUES( '" + obj.getString("code") + "','"
+                            + obj.getString("sname") + "','" + obj.getString("spost") + "','"
+                            + obj.getString("saddress") +"','"+ obj.getString("stel")+"','"
+                            + obj.getString("snote") +"','"+ obj.getString("rname") +"','"
+                            + obj.getString("rpost") +"','"+ obj.getString("raddress") +"','"
+                            + obj.getString("rtel") +"','"+ obj.getString("rnote") +"');");
+
+                    /*sqlDB.execSQL("INSERT INTO qrcodeTBL VALUES( '" + obj.getString("code") + "','"
+                             + tvSname.getText().toString() + "','" + tvSpost.getText().toString() + "','"
+                             + tvSaddress.getText().toString()+"','"+ tvStel.getText().toString()+"','"
+                             + tvSnote.getText().toString()+"','"+ tvRname.getText().toString()+"','"
+                             + tvRpost.getText().toString()+"','"+tvRaddress.getText().toString()+"','"
+                             + tvRtel.getText().toString()+"','"+ tvRnote.getText().toString()+"');");*/
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 sqlDB.close();
+                showToast("레코드 입력 완료");
             }
         });
     }
@@ -81,7 +96,7 @@ public class QRcamZxingInsert extends AppCompatActivity {
     //Getting the scan results
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
             //qrcode 가 없으면
             if (result.getContents() == null) {
@@ -91,7 +106,7 @@ public class QRcamZxingInsert extends AppCompatActivity {
                 Toast.makeText(QRcamZxingInsert.this, "스캔완료!", Toast.LENGTH_SHORT).show();
                 try {
                     //data를 json으로 변환
-                    JSONObject obj = new JSONObject(result.getContents());
+                    obj = new JSONObject(result.getContents());
                     tvCode.setText(obj.getString("code"));
                     tvSname.setText(obj.getString("sname"));
                     tvSpost.setText(obj.getString("spost"));
@@ -112,6 +127,9 @@ public class QRcamZxingInsert extends AppCompatActivity {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+    void showToast(String msg){
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
     public class QRcodeDB extends SQLiteOpenHelper {
         public QRcodeDB(@Nullable Context context) {

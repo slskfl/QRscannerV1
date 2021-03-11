@@ -45,6 +45,8 @@ public class Join extends AppCompatActivity {
         rdoDelivery=findViewById(R.id.rdoDelivery);
         userdb=new UserDB(this);
         deliverydb=new DeliveryDB(this);
+        tvPWmsg=findViewById(R.id.tvPWmsg);
+        tvIDmsg=findViewById(R.id.tvIDmsg);
 
 //        if(!edtPW.equals(edtPWchk)){
 //            tvPWmsg.setVisibility(View.VISIBLE);
@@ -71,7 +73,7 @@ public class Join extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!edtPW.getText().toString().equals(edtPWchk)){
-//                    tvPWmsg.setVisibility(View.VISIBLE);
+                    tvPWmsg.setVisibility(View.VISIBLE);
                     edtPW.setText(null);
                     edtPWchk.setText(null);
                 }
