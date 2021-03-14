@@ -77,7 +77,7 @@ public class QRcamZxingInsert extends AppCompatActivity {
                             + obj.getString("snote") +"','"+ obj.getString("rname") +"','"
                             + obj.getString("rpost") +"','"+ obj.getString("raddress") +"','"
                             + obj.getString("rtel") +"','"+ obj.getString("rnote") +"');");
-
+                    showToast("레코드 입력 완료");
                     /*sqlDB.execSQL("INSERT INTO qrcodeTBL VALUES( '" + obj.getString("code") + "','"
                              + tvSname.getText().toString() + "','" + tvSpost.getText().toString() + "','"
                              + tvSaddress.getText().toString()+"','"+ tvStel.getText().toString()+"','"
@@ -88,7 +88,6 @@ public class QRcamZxingInsert extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 sqlDB.close();
-                showToast("레코드 입력 완료");
             }
         });
     }
