@@ -5,30 +5,53 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class DeliveryPage extends AppCompatActivity {
-    ListView lvDelivery;
+    Button btnORCam;
+    ListView dListView;
+    ArrayList<String> myArrayList;
+
     SQLiteDatabase sqlDB;
     String result="";
     Cursor cursor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery_page);
+        btnORCam=findViewById(R.id.btnORCam);
+        dListView =findViewById(R.id.lvDelivery);
+        myArrayList = new ArrayList<>();
+        final ArrayAdapter<String> myArrayAdapter = new ArrayAdapter<>(DeliveryPage.this,
+                android.R.layout.simple_list_item_1, myArrayList);
+        dListView.setAdapter(myArrayAdapter);
 
-        lvDelivery=findViewById(R.id.lvDelivery);
+        //리스트뷰 보여주기
+        sqlDB=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
+                null, SQLiteDatabase.OPEN_READONLY);
+        cursor = sqlDB.rawQuery("SELECT * FROM qrcodeTBL;", null);
+        cursor.moveToFirst();
+        myArrayAdapter.notifyDataSetChanged();
 
-        selectDB();
+        do{
+            String code = "코드 : "+cursor.getString(0);
+            String address = "주소 : "+cursor.getString(8);
+            String note = "비고 : "+cursor.getString(10);
 
+            //Toast.makeText(DeliveryPage.this, ""+cursor.getPosition(), Toast.LENGTH_SHORT).show();
+            myArrayList.add(code+"\n"+ address+"\n"+note+"\n");
+            myArrayAdapter.notifyDataSetChanged();
 
+        }while(cursor.moveToNext());
+        cursor.close();
+        sqlDB.close();
 
        /* sqlDB=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
                 null, SQLiteDatabase.OPEN_READONLY);
@@ -53,25 +76,15 @@ public class DeliveryPage extends AppCompatActivity {
         }
         tvQRSelect.setText(result);
         cursor.close();
-        sqlDB.close();
-        btnQRcamera.setOnClickListener(new View.OnClickListener() {
+        sqlDB.close();*/
+        btnORCam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(DeliveryPage.this, QRcamZxingInsert.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
     }
 
-    public void selectDB(){
-        sqlDB=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
-                null, SQLiteDatabase.OPEN_READONLY);
-        Cursor cursor = sqlDB.rawQuery("SELECT * FROM qrcodeTBL WHERE code LIKE 'p%';", null);
-        if(cursor.getCount()>0){
-            startManagingCursor(cursor);
-            DBAdapter dbAdapter = new DBAdapter(this, cursor);
-            lvDelivery.setAdapter(dbAdapter);
-        }
-    }
 }

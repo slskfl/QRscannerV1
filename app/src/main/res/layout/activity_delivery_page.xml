@@ -13,16 +13,16 @@
         android:text="지도 보여주는 곳"/>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="400dp"
+        android:fillViewport="true">
         <ListView
             android:id="@+id/lvDelivery"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent"/>
     </ScrollView>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="300dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="100dp"
