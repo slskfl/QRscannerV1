@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="5dp">
+        <TextView
+            android:id="@+id/tvItemCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="p20214653"
+            android:layout_weight="2"
+            android:layout_margin="2dp"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/tvItemAdress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="경기도 성남시 분당구 동원북로 41, 현대아파트 202-504"
+            android:layout_weight="6"
+            android:layout_margin="2dp"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/tvItemNote"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="경비실"
+            android:layout_weight="1"
+            android:layout_margin="2dp"
+            android:textSize="18sp"/>
+    </LinearLayout>
+</RelativeLayout>

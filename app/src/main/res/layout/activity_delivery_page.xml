@@ -13,17 +13,26 @@
         android:text="지도 보여주는 곳"/>
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_height="400dp">
+        <ListView
+            android:id="@+id/lvDelivery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </ScrollView>
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/tvQRSelect"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="100dp"
+            android:text="오류메세지"/>
     </ScrollView>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            android:id="@+id/btnORCamera"
+            android:id="@+id/btnORCam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

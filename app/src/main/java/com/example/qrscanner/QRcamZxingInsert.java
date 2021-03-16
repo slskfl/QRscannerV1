@@ -66,26 +66,25 @@ public class QRcamZxingInsert extends AppCompatActivity {
                 qrScan.initiateScan();
             }
         });
+        //DB에 정보 넣기
         btnDBInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sqlDB= qrcodedb.getWritableDatabase();
                 try {
                     sqlDB.execSQL("INSERT INTO qrcodeTBL VALUES( '" + obj.getString("code") + "','"
-                            + obj.getString("sname") + "','" + obj.getString("spost") + "','"
+                            + obj.getString("sname") + "'," + obj.getInt("spost") + ",'"
                             + obj.getString("saddress") +"','"+ obj.getString("stel")+"','"
-                            + obj.getString("snote") +"','"+ obj.getString("rname") +"','"
-                            + obj.getString("rpost") +"','"+ obj.getString("raddress") +"','"
+                            + obj.getString("snote") +"','"+ obj.getString("rname") +"',"
+                            + obj.getInt("rpost") +",'"+ obj.getString("raddress") +"','"
                             + obj.getString("rtel") +"','"+ obj.getString("rnote") +"');");
                     showToast("레코드 입력 완료");
-                    /*sqlDB.execSQL("INSERT INTO qrcodeTBL VALUES( '" + obj.getString("code") + "','"
-                             + tvSname.getText().toString() + "','" + tvSpost.getText().toString() + "','"
-                             + tvSaddress.getText().toString()+"','"+ tvStel.getText().toString()+"','"
-                             + tvSnote.getText().toString()+"','"+ tvRname.getText().toString()+"','"
-                             + tvRpost.getText().toString()+"','"+tvRaddress.getText().toString()+"','"
-                             + tvRtel.getText().toString()+"','"+ tvRnote.getText().toString()+"');");*/
+
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "이미 등록된 정보입니다.", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "중복 오류", Toast.LENGTH_SHORT).show();
                 }
                 sqlDB.close();
             }
