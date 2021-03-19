@@ -17,7 +17,7 @@ public class ReturnPage extends AppCompatActivity {
         btnRQRcamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(ReturnPage.this, QRcamZxingInsert.class);
+                Intent intent=new Intent(ReturnPage.this, QRCamDComplete.class);
                 startActivity(intent);
             }
         });

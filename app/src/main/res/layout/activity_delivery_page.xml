@@ -5,37 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:context=".DeliveryPage">
-
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="50dp"
         android:text="지도 보여주는 곳"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:hint="코드 검색"
+            android:layout_marginRight="50dp"/>
+        <Button
+            android:id="@+id/btnORCam"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="QR코드 인식"/>
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="500dp"
         android:fillViewport="true">
         <ListView
             android:id="@+id/lvDelivery"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"/>
     </ScrollView>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="300dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="오류메세지"/>
-    </ScrollView>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/btnORCam"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="QR코드 인식"/>
-    </RelativeLayout>
+
 </LinearLayout>

@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".QRContentRead">
-
+    android:padding="10dp"
+    tools:context=".QRCamDComplete">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:text="지도 보여주는 곳"/>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,11 +18,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:text="운송장 번호 : "/>
         <TextView
+            android:id="@+id/tvCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="20210141"/>
+            android:text=""/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -31,11 +33,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:text="보내는 이 : "/>
         <TextView
+            android:id="@+id/tvSname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="홍길동"/>
+            android:text=""/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -44,11 +48,28 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:text="우편번호 : "/>
+        <TextView
+            android:id="@+id/tvSpost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:text="주소 : "/>
         <TextView
+            android:id="@+id/tvSaddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="서울 서초구 강남대로 429 동일빌딩, 카카오프렌즈"/>
+            android:text=""/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -57,11 +78,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:text="연락처 : "/>
         <TextView
+            android:id="@+id/tvStel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="010-5555-6666"/>
+            android:text=""/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -70,11 +93,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="내용물 : "/>
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:text="비고 : "/>
         <TextView
+            android:id="@+id/tvSnote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="손잡이우산(검정)"/>
+            android:text=""/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -83,24 +108,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="요청사항 : "/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:text="받는 이 : "/>
         <TextView
+            android:id="@+id/tvRname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="김영희희"/>    </LinearLayout>
+            android:text=""/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -108,11 +123,28 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:text="우편번호 : "/>
+        <TextView
+            android:id="@+id/tvRpost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:text="주소 : "/>
         <TextView
+            android:id="@+id/tvRaddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="경기 성남시 분당구 미금일로 58, 까치마을롯데선경아파트 401-1002"/>
+            android:text=""/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -121,11 +153,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:text="연락처 : "/>
         <TextView
+            android:id="@+id/tvRtel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="010-1212-3434"/>
+            android:text=""/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -134,11 +168,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="요청사항 : "/>
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:text="비고 : "/>
         <TextView
+            android:id="@+id/tvRnote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="경비실에 맡겨주세요"/>
+            android:text=""/>
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -147,15 +183,13 @@
             android:id="@+id/btnDComplete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/btnDQRcamera"
+            android:layout_above="@+id/btnInsertCamera"
             android:text="배송 완료"/>
         <Button
-            android:id="@+id/btnDQRcamera"
+            android:id="@+id/btnInsertCamera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:text="QR코드 인식"/>
     </RelativeLayout>
-<!--  반품 페이지에서는 반품 완료로 바꾸기-->
 </LinearLayout>
