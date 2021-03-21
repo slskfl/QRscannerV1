@@ -184,7 +184,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/btnInsertCamera"
-            android:text="배송 완료"/>
+            android:text="완료"/>
         <Button
             android:id="@+id/btnInsertCamera"
             android:layout_width="match_parent"
