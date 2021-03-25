@@ -31,68 +31,62 @@
     </LinearLayout>
     <TableLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:gravity="center"
         android:stretchColumns="3"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp">
         <View
             android:layout_width="wrap_content"
-            android:layout_height="1dp"/>
+            android:layout_height="0dp"/>
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:background="#EBE8FF">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="분류"
-                android:layout_marginBottom="1dp"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
                 android:layout_marginLeft="1dp"
-                android:padding="5dp"
-                android:gravity="center"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="1"
-                android:textSize="10pt"
-                android:textColor="@color/black"/>
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="배송"
+                android:textColor="@color/black"
+                android:textSize="10pt" />
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="전체 건 수"
-                android:layout_marginBottom="1dp"
                 android:layout_marginLeft="1dp"
-                android:padding="5dp"
-                android:gravity="center"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="1"
-                android:textSize="10pt"
-                android:textColor="@color/black"/>
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="반품"
+                android:textColor="@color/black"
+                android:textSize="10pt" />
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="남은 건 수"
-                android:layout_marginBottom="1dp"
                 android:layout_marginLeft="1dp"
-                android:padding="5dp"
-                android:gravity="center"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="1"
-                android:textSize="10pt"
-                android:textColor="@color/black"/>
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="오류"
+                android:textColor="@color/black"
+                android:textSize="10pt" />
         </TableRow>
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="배송"
-                android:layout_marginBottom="1dp"
-                android:layout_marginLeft="1dp"
-                android:padding="5dp"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:textSize="9pt"/>
-            <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/countD"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="52"
                 android:layout_marginBottom="1dp"
@@ -102,7 +96,19 @@
                 android:layout_weight="1"
                 android:textSize="9pt"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/countR"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="40"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="1dp"
+                android:padding="7dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="9pt"/>
+            <TextView
+                android:id="@+id/countE"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="40"
                 android:layout_marginBottom="1dp"
@@ -112,53 +118,32 @@
                 android:layout_weight="1"
                 android:textSize="9pt"/>
         </TableRow>
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="반품"
-                android:layout_marginBottom="1dp"
-                android:layout_marginLeft="1dp"
-                android:padding="5dp"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:textSize="9pt"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="14"
-                android:layout_marginBottom="1dp"
-                android:layout_marginLeft="1dp"
-                android:padding="5dp"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:textSize="9pt"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="11"
-                android:layout_marginBottom="1dp"
-                android:layout_marginLeft="1dp"
-                android:padding="5dp"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:textSize="9pt"/>
-        </TableRow>
     </TableLayout>
-    <TextView
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:text="메세지 공간"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <Button
             android:id="@+id/btnInsertCamera"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="QR코드 인식"/>
-    </RelativeLayout>
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:text="QR코드 인식" />
+    </LinearLayout>
 </LinearLayout>

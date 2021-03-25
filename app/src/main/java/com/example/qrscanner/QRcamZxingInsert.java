@@ -3,6 +3,7 @@ package com.example.qrscanner;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -36,7 +37,6 @@ public class QRcamZxingInsert extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_q_rcam_zxing);
-
         //View Objects
         buttonScan = (Button) findViewById(R.id.btnInsertCamera);
         btnDBInsert=findViewById(R.id.btnDBInsert);
