@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <EditText
+            android:id="@+id/edtCode"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:hint="코드 검색"

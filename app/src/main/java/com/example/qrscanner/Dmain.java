@@ -53,7 +53,6 @@ public class Dmain extends AppCompatActivity {
             content = "주소 : "+cursor.getString(8)+"\n" + "비고 : "+cursor.getString(10);
             subStr=cursor.getString(0).substring(0,1);
             adapter.addItem(code, R.drawable.box, content);
-            Toast.makeText(getApplicationContext(), subStr, Toast.LENGTH_SHORT).show();
             switch (subStr){
                 case "d":
                     adapter.addItem(code, R.drawable.box, content);

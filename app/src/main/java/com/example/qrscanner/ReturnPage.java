@@ -1,10 +1,13 @@
 package com.example.qrscanner;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,7 +22,7 @@ public class ReturnPage extends AppCompatActivity {
 
     SQLiteDatabase sqlDB;
     Cursor cursor;
-    String code, address;
+    String code, address, phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class ReturnPage extends AppCompatActivity {
         do{
             code = "코드 : "+cursor.getString(0);
             address = "주소 : "+cursor.getString(8)+"\n" + "비고 : "+cursor.getString(10);
+            phone=cursor.getString(9);
             adapter.addItem(code, R.drawable.returnbox, address );
             adapter.notifyDataSetChanged();
 
@@ -54,11 +58,23 @@ public class ReturnPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         rListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "리스트 클릭", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder=new AlertDialog.Builder(ReturnPage.this);
+                builder.setTitle("배송 물품 정보");
+                builder.setIcon(R.drawable.info);
+                builder.setPositiveButton("확인", null);
+                builder.setNegativeButton("전화 걸기", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Uri uri=Uri.parse("tel:" + phone);
+                        Intent intent=new Intent(Intent.ACTION_DIAL, uri);
+                        startActivity(intent);
+                    }
+                });
+                builder.setMessage(code+"\n"+address+"\n"+"연락처 : " + phone);
+                builder.show();
             }
         });
 
