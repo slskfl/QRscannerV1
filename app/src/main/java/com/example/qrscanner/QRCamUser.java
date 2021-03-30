@@ -1,13 +1,10 @@
 package com.example.qrscanner;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,28 +17,28 @@ import com.google.zxing.integration.android.IntentResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class QRcamZxingInsert extends AppCompatActivity {
-    Button buttonScan, btnDBInsert;
+public class QRCamUser extends AppCompatActivity {
+    Button buttonScan, btnDComplete;
     TextView tvCode, tvSname, tvSpost, tvSaddress, tvStel, tvSnote,
             tvRname, tvRpost, tvRaddress, tvRtel, tvRnote;
-    String code, sname, spost, saddress, stel, snote, rname, rpost, raddress, rtel, rnote;
+    String updateCode="";
     //qr code scanner object
     private IntentIntegrator qrScan;
     //DB
-    QRcodeDB qrcodedb;
+    QRcamZxingInsert qrDB=new QRcamZxingInsert();
     SQLiteDatabase sqlDB;
+    Cursor cursor;
     //QRscan
     JSONObject obj;
     IntentResult result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_q_rcam_zxing);
+        setContentView(R.layout.activity_q_r_cam_user);
 
-        Toast.makeText(getApplicationContext(), "QR인식 수행 후 사용해주세요.", Toast.LENGTH_SHORT).show();
         //View Objects
         buttonScan = (Button) findViewById(R.id.btnInsertCamera);
-        btnDBInsert=findViewById(R.id.btnDBInsert);
+        btnDComplete = findViewById(R.id.btnDComplete);
         tvCode = (TextView) findViewById(R.id.tvCode);
         tvSname = (TextView) findViewById(R.id.tvSname);
         tvSpost = (TextView) findViewById(R.id.tvSpost);
@@ -53,8 +50,6 @@ public class QRcamZxingInsert extends AppCompatActivity {
         tvRaddress = (TextView) findViewById(R.id.tvRaddress);
         tvRtel = (TextView) findViewById(R.id.tvRtel);
         tvRnote = (TextView) findViewById(R.id.tvRnote);
-        //DB생성
-        qrcodedb=new QRcodeDB(this);
 
         //intializing scan object
         qrScan = new IntentIntegrator(this);
@@ -69,25 +64,14 @@ public class QRcamZxingInsert extends AppCompatActivity {
             }
         });
         //DB에 정보 넣기
-        btnDBInsert.setOnClickListener(new View.OnClickListener() {
+        btnDComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sqlDB= qrcodedb.getWritableDatabase();
-                try {
-                    sqlDB.execSQL("INSERT INTO qrcodeTBL VALUES( '" + obj.getString("code") + "','"
-                            + obj.getString("sname") + "'," + obj.getInt("spost") + ",'"
-                            + obj.getString("saddress") +"','"+ obj.getString("stel")+"','"
-                            + obj.getString("snote") +"','"+ obj.getString("rname") +"',"
-                            + obj.getInt("rpost") +",'"+ obj.getString("raddress") +"','"
-                            + obj.getString("rtel") +"','"+ obj.getString("rnote") +"');");
-                    showToast("레코드 입력 완료");
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "이미 등록된 정보입니다.", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "중복 오류", Toast.LENGTH_SHORT).show();
-                }
+                sqlDB=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
+                        null, SQLiteDatabase.OPEN_READONLY);
+                sqlDB=qrDB.qrcodedb.getWritableDatabase();
+                sqlDB.rawQuery("UPDATE qrcodeTBL SET rname='', rpost='', raddress='', rtel='', rnote=''" +
+                        "  WHERE code = '"+updateCode+"' ;", null);
                 sqlDB.close();
             }
         });
@@ -95,15 +79,15 @@ public class QRcamZxingInsert extends AppCompatActivity {
 
     //Getting the scan results
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
             //qrcode 가 없으면
             if (result.getContents() == null) {
-                Toast.makeText(QRcamZxingInsert.this, "취소!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QRCamUser.this, "취소!", Toast.LENGTH_SHORT).show();
             } else {
                 //qrcode 결과가 있으면
-                Toast.makeText(QRcamZxingInsert.this, "스캔완료!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QRCamUser.this, "스캔완료!", Toast.LENGTH_SHORT).show();
                 try {
                     //data를 json으로 변환
                     obj = new JSONObject(result.getContents());
@@ -118,9 +102,10 @@ public class QRcamZxingInsert extends AppCompatActivity {
                     tvRaddress.setText(obj.getString("raddress"));
                     tvRtel.setText(obj.getString("rtel"));
                     tvRnote.setText(obj.getString("rnote"));
+                    updateCode=obj.getString("code");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(QRcamZxingInsert.this, result.getContents(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(QRCamUser.this, result.getContents(), Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -128,26 +113,9 @@ public class QRcamZxingInsert extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-    void showToast(String msg){
+
+    void showToast(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
-    public class QRcodeDB extends SQLiteOpenHelper {
-        public QRcodeDB(@Nullable Context context) {
-            super(context, "QRcodeDB", null, 1);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE qrcodeTBL(code TEXT PRIMARY KEY, sname TEXT NOT NULL," +
-                    "spost INTEGER NOT NULL , saddress TEXT NOT NULL, " +
-                    "stel TEXT NOT NULL, snote TEXT, rname TEXT, " +
-                    "rpost INTEGER, raddress TEXT, " +
-                    "rtel TEXT, rnote TEXT);"); // 테이블 생성
-        }
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS qrcodeTBL");
-            onCreate(db);
-        }
-    }
 }
+

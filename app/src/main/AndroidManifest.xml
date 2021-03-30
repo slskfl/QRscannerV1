@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_qrbox_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QRscanner">
-        <activity android:name=".QRCamDComplete"></activity>
+        <activity android:name=".QRCamUser"></activity>
+        <activity android:name=".QRCamDComplete" />
 
         <meta-data
             android:name="android.max_aspect"
