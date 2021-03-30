@@ -1,13 +1,10 @@
 package com.example.qrscanner;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +21,7 @@ public class QRCamDComplete extends AppCompatActivity {
     Button buttonScan, btnDComplete;
     TextView tvCode, tvSname, tvSpost, tvSaddress, tvStel, tvSnote,
             tvRname, tvRpost, tvRaddress, tvRtel, tvRnote;
-    String updateCode="";
+    String updateCode, code;
     //qr code scanner object
     private IntentIntegrator qrScan;
     //DB
@@ -71,10 +68,11 @@ public class QRCamDComplete extends AppCompatActivity {
         btnDComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                replaceCode();
                 sqlDB=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
                         null, SQLiteDatabase.OPEN_READONLY);
                 sqlDB=qrDB.qrcodedb.getWritableDatabase();
-                sqlDB.rawQuery("UPDATE qrcodeTBL SET code=REPLACE(code, 'd','cd') WHERE code LIKE '"+updateCode+"' ;", null);
+                sqlDB.rawQuery("UPDATE qrcodeTBL SET code=updateCode WHERE code LIKE '"+code+"' ;", null);
                 sqlDB.close();
             }
         });
@@ -105,7 +103,7 @@ public class QRCamDComplete extends AppCompatActivity {
                     tvRaddress.setText(obj.getString("raddress"));
                     tvRtel.setText(obj.getString("rtel"));
                     tvRnote.setText(obj.getString("rnote"));
-                    updateCode=obj.getString("code");
+                    code=obj.getString("code");
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(QRCamDComplete.this, result.getContents(), Toast.LENGTH_LONG).show();
@@ -117,6 +115,10 @@ public class QRCamDComplete extends AppCompatActivity {
         }
     }
 
+    String replaceCode(){
+        updateCode=code.replace("c", "cd");
+        return updateCode;
+    }
     void showToast(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }

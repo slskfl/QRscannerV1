@@ -35,9 +35,9 @@ public class Dmain extends AppCompatActivity {
         countR=findViewById(R.id.countR);
         countE=findViewById(R.id.countE);
 
-        countD.setText(countDelivery());
-        countR.setText(countReturn());
-        countE.setText(countError());
+        countD.setText(count("d"));
+        countR.setText(count("r"));
+        countE.setText(count("e"));
 
         listview =findViewById(R.id.listview);
         adapter=new ListViewAdapter();
@@ -103,7 +103,16 @@ public class Dmain extends AppCompatActivity {
         });
     }
 
-    String countDelivery(){
+    String count(String str){
+        sql=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
+                null, SQLiteDatabase.OPEN_READONLY);
+        cursor = sql.rawQuery("SELECT * FROM qrcodeTBL WHERE code LIKE '"+str+"%';", null);
+        cursor.moveToFirst();
+        int count=cursor.getCount();
+
+        return String.valueOf(count);
+    }
+    /*String countDelivery(){
         sql=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
                 null, SQLiteDatabase.OPEN_READONLY);
         cursor = sql.rawQuery("SELECT * FROM qrcodeTBL WHERE code LIKE 'd%';", null);
@@ -129,7 +138,7 @@ public class Dmain extends AppCompatActivity {
         int count=cursor.getCount();
 
         return String.valueOf(count);
-    }
+    }*/
 
     @Override
     protected void onResume() {
