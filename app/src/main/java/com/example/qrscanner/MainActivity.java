@@ -1,5 +1,6 @@
 package com.example.qrscanner;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,6 +16,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActionBar bar=getSupportActionBar();
+        bar.setTitle("택배 QR코드");
+        bar.setIcon(R.drawable.yellow_box);
 
         btnUserImg=findViewById(R.id.btnUserImg);
         btnDeliveryImg=findViewById(R.id.btnDeliveryImg);

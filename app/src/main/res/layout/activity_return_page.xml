@@ -7,33 +7,51 @@
     android:orientation="vertical"
     tools:context=".ReturnPage">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="지도 보여주는 곳"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <EditText
-            android:layout_width="100dp"
+            android:id="@+id/edtCode"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:padding="5dp"
+            android:hint="코드 검색"/>
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="코드 검색"
-            android:layout_marginRight="50dp"/>
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/button_full"
+            android:text="검색"/>
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <Button
             android:id="@+id/btnORCam"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="QR코드 인식"/>
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_rect"
+            android:text="QR코드 인식" />
     </LinearLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:fillViewport="true">
-        <ListView
-            android:id="@+id/listview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </ScrollView>
 </LinearLayout>

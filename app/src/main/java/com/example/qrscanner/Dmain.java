@@ -52,15 +52,15 @@ public class Dmain extends AppCompatActivity {
         listview.setAdapter(adapter);
 
         sql=dbHelper.getReadableDatabase();
-        cursor = sql.rawQuery("SELECT * FROM qrcodeTBL;", null);
+        cursor = sql.rawQuery("select * from (select * from qrcodeTBL order by code ASC limit 7)", null);
         cursor.moveToLast();
-        try{
-            for(int i=0; i<3; i++){
-                code = "코드 : "+cursor.getString(0);
-                content = "주소 : "+cursor.getString(8)+"\n" + "비고 : "+cursor.getString(10);
-                subStr=cursor.getString(0).substring(0,1);
+        try {
+            do {
+                code = "코드 : " + cursor.getString(0);
+                content = "주소 : " + cursor.getString(8) + "\n" + "비고 : " + cursor.getString(10);
                 adapter.addItem(code, R.drawable.box, content);
-                switch (subStr){
+                subStr = cursor.getString(0).substring(0, 1);
+                switch (subStr) {
                     case "d":
                         adapter.addItem(code, R.drawable.box, content);
                         break;
@@ -71,9 +71,8 @@ public class Dmain extends AppCompatActivity {
                         adapter.addItem(code, R.drawable.error, content);
                         break;
                 }
+            }while (cursor.moveToPrevious()) ;
                 adapter.notifyDataSetChanged();
-                cursor.moveToPrevious();
-            }
 
         } catch (Exception e){
             showToast("QR코드 인식하여 데이터를 입력해주세요.");

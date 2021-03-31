@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#F29661"
+        android:background="#ffcc29"
         android:gravity="center">
         <Button
             android:id="@+id/framebtn1"
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#A6A6A6"
+        android:background="#f58634"
         android:gravity="center">
         <Button
             android:id="@+id/framebtn2"
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#6799FF"
+        android:background="#007965"
         android:gravity="center">
         <Button
             android:id="@+id/framebtn3"

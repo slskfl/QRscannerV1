@@ -13,12 +13,15 @@
         <EditText
             android:id="@+id/edtCode"
             android:layout_width="250dp"
-            android:layout_height="50dp"/>
+            android:layout_height="50dp"
+            android:padding="5dp"
+            android:hint="코드 검색"/>
         <Button
             android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:background="@drawable/button_full"
             android:text="검색"/>
     </LinearLayout>
     <ScrollView
@@ -46,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
+            android:background="@drawable/button_rect"
             android:text="QR코드 인식" />
     </LinearLayout>
 

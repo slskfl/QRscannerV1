@@ -102,7 +102,4 @@ public class DeliveryPage extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }while(cursor.moveToNext());
     }
-
-
-
 }

@@ -12,14 +12,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class ReturnPage extends AppCompatActivity {
-    Button btnORCam;
+    Button btnORCam, btnSearch;
     ListView rListView;
     ListViewAdapter adapter;
-
+    EditText edtCode;
     SQLiteDatabase sqlDB;
     Cursor cursor;
     String code, address, phone;
@@ -30,26 +31,25 @@ public class ReturnPage extends AppCompatActivity {
         setContentView(R.layout.activity_return_page);
         btnORCam=findViewById(R.id.btnORCam);
         rListView =findViewById(R.id.listview);
-
+        edtCode=findViewById(R.id.edtCode);
+        btnSearch=findViewById(R.id.btnSearch);
         adapter=new ListViewAdapter();
         rListView.setAdapter(adapter);
 
-        //리스트뷰 보여주기
-        sqlDB=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
-                null, SQLiteDatabase.OPEN_READONLY);
-        cursor = sqlDB.rawQuery("SELECT * FROM qrcodeTBL WHERE code LIKE 'r%';", null);
-        cursor.moveToFirst();
+        showList("r");
 
-        do{
-            code = "코드 : "+cursor.getString(0);
-            address = "주소 : "+cursor.getString(8)+"\n" + "비고 : "+cursor.getString(10);
-            phone=cursor.getString(9);
-            adapter.addItem(code, R.drawable.returnbox, address );
-            adapter.notifyDataSetChanged();
-
-        }while(cursor.moveToNext());
-        cursor.close();
-        sqlDB.close();
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String search=edtCode.getText().toString();
+                adapter.itemClear();
+                if(search==null){
+                    showList("r");
+                }else {
+                    showList(search);
+                }
+            }
+        });
 
         btnORCam.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +77,22 @@ public class ReturnPage extends AppCompatActivity {
                 builder.show();
             }
         });
-
+        cursor.close();
+        sqlDB.close();
+    }
+    void showList(String str){
+        adapter.itemClear();
+        sqlDB=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
+                null, SQLiteDatabase.OPEN_READONLY);
+        cursor = sqlDB.rawQuery("SELECT * FROM qrcodeTBL WHERE code LIKE '"+str+"%';", null);
+        cursor.moveToFirst();
+        do{
+            code = "코드 : "+cursor.getString(0);
+            address = "주소 : "+cursor.getString(8)+"\n" + "비고 : "+cursor.getString(10);
+            adapter.addItem(code, R.drawable.returnbox, address );
+            phone=cursor.getString(9);
+            adapter.notifyDataSetChanged();
+        }while(cursor.moveToNext());
     }
 
 }
