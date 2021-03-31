@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_qrbox_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QRscanner">
-        <activity android:name=".QRCamUser"></activity>
+        <activity android:name=".Umain"></activity>
+        <activity android:name=".QRCamUser" />
         <activity android:name=".QRCamDComplete" />
 
         <meta-data

@@ -1,12 +1,15 @@
 package com.example.qrscanner;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,7 +22,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class DeliveryPage extends AppCompatActivity {
-    Button btnORCam;
+    Button btnORCam, btnSearch;
     ListView dListView;
     ListViewAdapter adapter;
     EditText edtCode;
@@ -33,62 +36,25 @@ public class DeliveryPage extends AppCompatActivity {
         setContentView(R.layout.activity_delivery_page);
         btnORCam=findViewById(R.id.btnORCam);
         dListView =findViewById(R.id.listview);
-
+        edtCode=findViewById(R.id.edtCode);
+        btnSearch=findViewById(R.id.btnSearch);
         adapter=new ListViewAdapter();
         dListView.setAdapter(adapter);
 
-        sqlDB=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
-                null, SQLiteDatabase.OPEN_READONLY);
+        showList("d");
 
-        edtCode.addTextChangedListener(new TextWatcher() {
+        btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // 입력하기 전
-                cursor = sqlDB.rawQuery("SELECT * FROM qrcodeTBL WHERE code LIKE 'd%';", null);
-                cursor.moveToFirst();
-                do{
-                    code = "코드 : "+cursor.getString(0);
-                    address = "주소 : "+cursor.getString(8)+"\n" + "비고 : "+cursor.getString(10);
-                    adapter.addItem(code, R.drawable.box, address );
-                    phone=cursor.getString(9);
-                    adapter.notifyDataSetChanged();
-                }while(cursor.moveToNext());
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // 변화가 있을 경우
-                cursor = sqlDB.rawQuery("SELECT * FROM qrcodeTBL WHERE code LIKE '"
-                        +s+"%';", null);
-                cursor.moveToFirst();
-                do{
-                    code = "코드 : "+cursor.getString(0);
-                    address = "주소 : "+cursor.getString(8)+"\n" + "비고 : "+cursor.getString(10);
-                    adapter.addItem(code, R.drawable.box, address );
-                    phone=cursor.getString(9);
-                    adapter.notifyDataSetChanged();
-                }while(cursor.moveToNext());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // 입력이 끝났을 경우
+            public void onClick(View v) {
+                String search=edtCode.getText().toString();
+                adapter.itemClear();
+                if(search==null){
+                    showList("d");
+                }else {
+                    showList(search);
+                }
             }
         });
-
-
-        //리스트뷰 보여주기
-        /*sqlDB=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
-                null, SQLiteDatabase.OPEN_READONLY);
-        cursor = sqlDB.rawQuery("SELECT * FROM qrcodeTBL WHERE code LIKE 'd%';", null);
-        cursor.moveToFirst();
-        do{
-            code = "코드 : "+cursor.getString(0);
-            address = "주소 : "+cursor.getString(8)+"\n" + "비고 : "+cursor.getString(10);
-            adapter.addItem(code, R.drawable.box, address );
-            phone=cursor.getString(9);
-            adapter.notifyDataSetChanged();
-        }while(cursor.moveToNext());*/
 
         btnORCam.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,11 +79,30 @@ public class DeliveryPage extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                builder.setMessage(code+"\n"+address+"\n"+"연락처 : " + phone);
+                builder.setMessage(adapter.listViewItemList.get(position).getTitleStr()+"\n"
+                        +adapter.listViewItemList.get(position).getContentStr());
                 builder.show();
             }
         });
         cursor.close();
         sqlDB.close();
     }
+
+    void showList(String str){
+        adapter.itemClear();
+        sqlDB=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
+                null, SQLiteDatabase.OPEN_READONLY);
+        cursor = sqlDB.rawQuery("SELECT * FROM qrcodeTBL WHERE code LIKE '"+str+"%';", null);
+        cursor.moveToFirst();
+        do{
+            code = "코드 : "+cursor.getString(0);
+            address = "주소 : "+cursor.getString(8)+"\n" + "비고 : "+cursor.getString(10);
+            adapter.addItem(code, R.drawable.box, address );
+            phone=cursor.getString(9);
+            adapter.notifyDataSetChanged();
+        }while(cursor.moveToNext());
+    }
+
+
+
 }

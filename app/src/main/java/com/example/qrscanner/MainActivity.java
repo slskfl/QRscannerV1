@@ -17,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnUserImg=findViewById(R.id.btnUserImg);
+        btnDeliveryImg=findViewById(R.id.btnDeliveryImg);
+        btnSignUp=findViewById(R.id.btnSignUp);
+
         btnUserImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -25,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnDeliveryImg=findViewById(R.id.btnDeliveryImg);
         btnDeliveryImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnSignUp=findViewById(R.id.btnSignUp);
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

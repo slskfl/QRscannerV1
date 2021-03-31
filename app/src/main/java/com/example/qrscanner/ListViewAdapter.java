@@ -21,6 +21,9 @@ public class ListViewAdapter extends BaseAdapter {
     public ListViewAdapter() {
 
     }
+    public void itemClear(){
+        listViewItemList.clear();
+    }
 
     @Override
     public int getCount() {

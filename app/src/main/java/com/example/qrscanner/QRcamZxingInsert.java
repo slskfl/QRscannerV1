@@ -28,7 +28,7 @@ public class QRcamZxingInsert extends AppCompatActivity {
     //qr code scanner object
     private IntentIntegrator qrScan;
     //DB
-    QRcodeDB qrcodedb;
+    DBHelper dbHelper=new DBHelper(this);
     SQLiteDatabase sqlDB;
     //QRscan
     JSONObject obj;
@@ -53,8 +53,6 @@ public class QRcamZxingInsert extends AppCompatActivity {
         tvRaddress = (TextView) findViewById(R.id.tvRaddress);
         tvRtel = (TextView) findViewById(R.id.tvRtel);
         tvRnote = (TextView) findViewById(R.id.tvRnote);
-        //DB생성
-        qrcodedb=new QRcodeDB(this);
 
         //intializing scan object
         qrScan = new IntentIntegrator(this);
@@ -72,7 +70,7 @@ public class QRcamZxingInsert extends AppCompatActivity {
         btnDBInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sqlDB= qrcodedb.getWritableDatabase();
+                sqlDB= dbHelper.getWritableDatabase();
                 try {
                     sqlDB.execSQL("INSERT INTO qrcodeTBL VALUES( '" + obj.getString("code") + "','"
                             + obj.getString("sname") + "'," + obj.getInt("spost") + ",'"
@@ -131,23 +129,5 @@ public class QRcamZxingInsert extends AppCompatActivity {
     void showToast(String msg){
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
-    public class QRcodeDB extends SQLiteOpenHelper {
-        public QRcodeDB(@Nullable Context context) {
-            super(context, "QRcodeDB", null, 1);
-        }
 
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE qrcodeTBL(code TEXT PRIMARY KEY, sname TEXT NOT NULL," +
-                    "spost INTEGER NOT NULL , saddress TEXT NOT NULL, " +
-                    "stel TEXT NOT NULL, snote TEXT, rname TEXT, " +
-                    "rpost INTEGER, raddress TEXT, " +
-                    "rtel TEXT, rnote TEXT);"); // 테이블 생성
-        }
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS qrcodeTBL");
-            onCreate(db);
-        }
-    }
 }

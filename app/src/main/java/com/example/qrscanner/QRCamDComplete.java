@@ -25,7 +25,7 @@ public class QRCamDComplete extends AppCompatActivity {
     //qr code scanner object
     private IntentIntegrator qrScan;
     //DB
-    QRcamZxingInsert qrDB=new QRcamZxingInsert();
+    DBHelper dbHelper=new DBHelper(this);
     SQLiteDatabase sqlDB;
     Cursor cursor;
     //QRscan
@@ -64,16 +64,11 @@ public class QRCamDComplete extends AppCompatActivity {
                 qrScan.initiateScan();
             }
         });
-        //DB에 정보 넣기
+        //DB에 정보 수정하기
         btnDComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceCode();
-                sqlDB=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
-                        null, SQLiteDatabase.OPEN_READONLY);
-                sqlDB=qrDB.qrcodedb.getWritableDatabase();
-                sqlDB.rawQuery("UPDATE qrcodeTBL SET code=updateCode WHERE code LIKE '"+code+"' ;", null);
-                sqlDB.close();
+                updateCode();
             }
         });
     }
@@ -85,10 +80,10 @@ public class QRCamDComplete extends AppCompatActivity {
         if (result != null) {
             //qrcode 가 없으면
             if (result.getContents() == null) {
-                Toast.makeText(QRCamDComplete.this, "취소!", Toast.LENGTH_SHORT).show();
+                showToast("취소");
             } else {
                 //qrcode 결과가 있으면
-                Toast.makeText(QRCamDComplete.this, "스캔완료!", Toast.LENGTH_SHORT).show();
+                showToast("스캔 완료");
                 try {
                     //data를 json으로 변환
                     obj = new JSONObject(result.getContents());
@@ -116,9 +111,30 @@ public class QRCamDComplete extends AppCompatActivity {
     }
 
     String replaceCode(){
-        updateCode=code.replace("c", "cd");
+        String str=code.substring(0,1);
+        switch (str){
+            case "d":
+                updateCode=code.replace("d", "cd");
+                break;
+            case "r":
+                updateCode=code.replace("r", "cr");
+                break;
+            case "e":
+                updateCode=code.replace("e", "ce");
+                break;
+        }
         return updateCode;
     }
+    void updateCode(){
+        replaceCode();
+        sqlDB=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
+                null, SQLiteDatabase.OPEN_READONLY);
+        sqlDB=dbHelper.getWritableDatabase();
+        sqlDB.execSQL("UPDATE qrcodeTBL SET code='"+updateCode+"' WHERE code LIKE '"+code+"' ;", null);
+        showToast("수정 완료");
+        sqlDB.close();
+    }
+
     void showToast(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }

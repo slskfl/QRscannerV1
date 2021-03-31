@@ -25,7 +25,7 @@ public class QRCamUser extends AppCompatActivity {
     //qr code scanner object
     private IntentIntegrator qrScan;
     //DB
-    QRcamZxingInsert qrDB=new QRcamZxingInsert();
+    DBHelper dbHelper=new DBHelper(this);
     SQLiteDatabase sqlDB;
     Cursor cursor;
     //QRscan
@@ -69,9 +69,11 @@ public class QRCamUser extends AppCompatActivity {
             public void onClick(View v) {
                 sqlDB=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
                         null, SQLiteDatabase.OPEN_READONLY);
-                sqlDB=qrDB.qrcodedb.getWritableDatabase();
+                sqlDB=dbHelper.getWritableDatabase();
                 sqlDB.rawQuery("UPDATE qrcodeTBL SET rname='', rpost='', raddress='', rtel='', rnote=''" +
                         "  WHERE code = '"+updateCode+"' ;", null);
+                Toast.makeText(getApplicationContext(), "배송 완료>> 정보 삭제", Toast.LENGTH_SHORT).show();
+
                 sqlDB.close();
             }
         });
