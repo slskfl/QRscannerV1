@@ -117,9 +117,13 @@ public class QRCamDComplete extends AppCompatActivity {
                     btnDComplete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            sqlDB=dbHelper.getWritableDatabase();
-                            sqlDB.execSQL("UPDATE qrcodeTBL SET code='"+updateCode+"' WHERE code='"+code+"' ;", null);
-                            showToast("수정 완료");
+                            try {
+                                sqlDB = dbHelper.getWritableDatabase();
+                                sqlDB.execSQL("UPDATE qrcodeTBL SET code='" + updateCode + "' WHERE code='" + code + "' ;", null);
+                                showToast("수정 완료");
+                            } catch (Exception e){
+                                showToast("존재하지 않는 데이터 입니다.");
+                            }
                             sqlDB.close();
                         }
                     });
@@ -133,12 +137,12 @@ public class QRCamDComplete extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-    void updateCode(){
+    /*void updateCode(){
         sqlDB=dbHelper.getWritableDatabase();
         sqlDB.execSQL("UPDATE qrcodeTBL SET code='"+updateCode+"' WHERE code='"+code+"' ;", null);
         showToast("수정 완료");
         sqlDB.close();
-    }
+    }*/
 
     void showToast(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();

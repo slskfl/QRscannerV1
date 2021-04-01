@@ -67,13 +67,16 @@ public class QRCamUser extends AppCompatActivity {
         btnDComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sqlDB=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
-                        null, SQLiteDatabase.OPEN_READONLY);
-                sqlDB=dbHelper.getWritableDatabase();
-                sqlDB.rawQuery("UPDATE qrcodeTBL SET rname='', rpost='', raddress='', rtel='', rnote=''" +
-                        "  WHERE code = '"+updateCode+"' ;", null);
-                Toast.makeText(getApplicationContext(), "배송 완료>> 정보 삭제", Toast.LENGTH_SHORT).show();
-
+                try {
+                    sqlDB = SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
+                            null, SQLiteDatabase.OPEN_READONLY);
+                    sqlDB = dbHelper.getWritableDatabase();
+                    sqlDB.rawQuery("UPDATE qrcodeTBL SET rname='', rpost='', raddress='', rtel='', rnote=''" +
+                            "  WHERE code = '" + updateCode + "' ;", null);
+                    showToast("배송 완료>> 정보 삭제");
+                } catch (Exception e){
+                    showToast("존재하지 않는 데이터 입니다.");
+                }
                 sqlDB.close();
             }
         });
