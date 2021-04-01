@@ -41,7 +41,7 @@ public class QRcamZxingInsert extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "QR인식 수행 후 사용해주세요.", Toast.LENGTH_SHORT).show();
         //View Objects
         buttonScan = (Button) findViewById(R.id.btnInsertCamera);
-        btnDBInsert=findViewById(R.id.btnInsertCamera);
+        btnDBInsert=findViewById(R.id.btnDComplete);
         tvCode = (TextView) findViewById(R.id.tvCode);
         tvSname = (TextView) findViewById(R.id.tvSname);
         tvSpost = (TextView) findViewById(R.id.tvSpost);

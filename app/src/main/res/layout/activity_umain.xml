@@ -7,25 +7,12 @@
     android:orientation="vertical"
     tools:context=".Umain">
 
+    FFDF24
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#ffcc29"
-        android:gravity="center">
-        <Button
-            android:id="@+id/framebtn1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#00ff0000"
-            android:textSize="35sp"
-            android:text="내 정보 수정"/>
-    </FrameLayout>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="#f58634"
+        android:background="#ef8d32"
         android:gravity="center">
         <Button
             android:id="@+id/framebtn2"
@@ -39,13 +26,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#007965"
+        android:background="#ffcc29"
         android:gravity="center">
         <Button
             android:id="@+id/framebtn3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#00ff0000"
+            android:background="#beca5c"
             android:textSize="35sp"
             android:text="고객센터"/>
     </FrameLayout>

@@ -13,27 +13,7 @@
         android:text="택배 QR코드"
         android:textSize="20pt"
         android:layout_marginBottom="70dp"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageButton
-            android:id="@+id/btnUserImg"
-            android:layout_width="80dp"
-            android:layout_height="85dp"
-            android:src="@drawable/userimg"
-            android:adjustViewBounds="true"
-            android:layout_marginRight="10dp"
-            android:scaleType="fitXY"/>
-        <ImageButton
-            android:id="@+id/btnDeliveryImg"
-            android:layout_width="80dp"
-            android:layout_height="85dp"
-            android:src="@drawable/deliveryman"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"/>
-    </LinearLayout>
-    <LinearLayout
+   <!-- <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -91,6 +71,64 @@
             android:layout_height="40dp"
             android:text="로그인"
             android:background="@drawable/button_full"/>
+    </LinearLayout>-->
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal"
+        android:hint="Enter email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="250dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Enter password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/buttonSignup"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_full"
+        android:text="로그인" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="신규 회원가입"
+            android:id="@+id/textViewSignin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="패스워드가 기억나지 않습니까?"
+            android:layout_marginLeft="16dp"
+            android:id="@+id/textViewFindpassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <TextView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/textviewMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tvUser"
+        android:textSize="18sp"
+        android:textColor="#5b8a72"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사용자일 경우 이곳은 클릭해주세요."/>
 </LinearLayout>

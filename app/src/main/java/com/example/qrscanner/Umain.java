@@ -10,24 +10,16 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 public class Umain extends AppCompatActivity {
-    Button framebtn1, framebtn2, framebtn3;
+    Button framebtn1, framebtn2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_umain);
 
-        framebtn1=findViewById(R.id.framebtn1);
-        framebtn2=findViewById(R.id.framebtn2);
-        framebtn3=findViewById(R.id.framebtn3);
+        framebtn1=findViewById(R.id.framebtn2);
+        framebtn2=findViewById(R.id.framebtn3);
 
         framebtn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        framebtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Umain.this, QRCamUser.class);
@@ -35,7 +27,7 @@ public class Umain extends AppCompatActivity {
             }
         });
 
-        framebtn3.setOnClickListener(new View.OnClickListener() {
+        framebtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String tel="080-000-0000";

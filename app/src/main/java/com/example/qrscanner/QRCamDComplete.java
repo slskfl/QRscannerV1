@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -65,12 +66,12 @@ public class QRCamDComplete extends AppCompatActivity {
             }
         });
         //DB에 정보 수정하기
-        btnDComplete.setOnClickListener(new View.OnClickListener() {
+        /*btnDComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateCode();
             }
-        });
+        });*/
     }
 
     //Getting the scan results
@@ -99,6 +100,29 @@ public class QRCamDComplete extends AppCompatActivity {
                     tvRtel.setText(obj.getString("rtel"));
                     tvRnote.setText(obj.getString("rnote"));
                     code=obj.getString("code");
+                    String str=code.substring(0,1);
+
+                    if(str.equals("d")) {
+                        updateCode=code.replace("d", "cd");
+                        btnDComplete.setText("배송 완료");
+                    } else if(str.equals("r")) {
+                        updateCode=code.replace("r", "cr");
+                        btnDComplete.setText("반품 완료");
+                    } else if(str.equals("e")) {
+                        updateCode=code.replace("e", "ce");
+                        btnDComplete.setText("오류 완료");
+                    }
+                    Log.e("test", code + ">>" + str +">>" + updateCode );
+
+                    btnDComplete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            sqlDB=dbHelper.getWritableDatabase();
+                            sqlDB.execSQL("UPDATE qrcodeTBL SET code='"+updateCode+"' WHERE code='"+code+"' ;", null);
+                            showToast("수정 완료");
+                            sqlDB.close();
+                        }
+                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(QRCamDComplete.this, result.getContents(), Toast.LENGTH_LONG).show();
@@ -109,28 +133,9 @@ public class QRCamDComplete extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-
-    String replaceCode(){
-        String str=code.substring(0,1);
-        switch (str){
-            case "d":
-                updateCode=code.replace("d", "cd");
-                break;
-            case "r":
-                updateCode=code.replace("r", "cr");
-                break;
-            case "e":
-                updateCode=code.replace("e", "ce");
-                break;
-        }
-        return updateCode;
-    }
     void updateCode(){
-        replaceCode();
-        sqlDB=SQLiteDatabase.openDatabase("/data/data/com.example.qrscanner/databases/QRcodeDB",
-                null, SQLiteDatabase.OPEN_READONLY);
         sqlDB=dbHelper.getWritableDatabase();
-        sqlDB.execSQL("UPDATE qrcodeTBL SET code='"+updateCode+"' WHERE code LIKE '"+code+"' ;", null);
+        sqlDB.execSQL("UPDATE qrcodeTBL SET code='"+updateCode+"' WHERE code='"+code+"' ;", null);
         showToast("수정 완료");
         sqlDB.close();
     }
